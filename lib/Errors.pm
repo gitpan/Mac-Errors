@@ -1,8 +1,11 @@
+# $Id: Errors.pm,v 1.3 2002/10/08 23:20:06 comdog Exp $
 package Mac::Errors;
 use strict;
 
-use base qw(Exporter);
-use vars qw(@EXPORT_OK %MacErrors);
+use base qw(Exporter Tie::Scalar);
+use vars qw(@EXPORT_OK %MacErrors $MacError $VERSION);
+
+$VERSION = '0.7';
 
 use Exporter;
 
@@ -27,11 +30,20 @@ my $symbol = $error->symbol;
 my $number = $error->number;
 my $desc   = $error->description; 
 
+# in MacPerl, $^E is meaningful, and we tie $MacError to it
+use Mac::Errors qw( $MacError );
+
+open FILE, $foo or die $^E;       # error number
+open FILE, $foo or die $MacError; # gets description from $^E
+
 =head1 DESCRIPTION
 
 The %MacErrors hash indexes error information by the error
 number or symbol.  Each value is a Mac::Errors object which
 has the symbol, number, and description.
+
+The $MacError scalar performs some tied magic to translate
+MacPerl's $^E to the error text.
 
 =head1 METHODS
 
@@ -63,6 +75,21 @@ The subroutine returns the error number.
 =cut
 
 @EXPORT_OK = qw(%MacErrors);
+
+tie $MacError, __PACKAGE__;
+
+sub TIESCALAR 
+	{
+	my( $scalar, $class ) = @_;
+	return bless \$scalar, __PACKAGE__;
+	}
+
+sub FETCH 
+	{
+	return $^E unless exists $MacErrors{ $^E + 0 };
+	return $MacErrors{ $^E + 0 }->description;
+	}
+
 constants();
 
 sub constants 
@@ -2741,7 +2768,7 @@ sub notLockedErr { -623 }
 
 =item interruptsMaskedErr
 
- don’t call with interrupts masked
+ donÕt call with interrupts masked
 
 =cut
 
@@ -4964,7 +4991,7 @@ sub noMoreKeyColorsErr { -2205 }
 
 =item notExactSizeErr
 
- Can’t do exact size requested
+ CanÕt do exact size requested
 
 =cut
 
@@ -4972,7 +4999,7 @@ sub notExactSizeErr { -2206 }
 
 =item badDepthErr
 
- Can’t digitize into this depth
+ CanÕt digitize into this depth
 
 =cut
 
@@ -4980,7 +5007,7 @@ sub badDepthErr { -2207 }
 
 =item noDMAErr
 
- Can’t do DMA digitizing (i.e. can't go to requested dest
+ CanÕt do DMA digitizing (i.e. can't go to requested dest
 
 =cut
 
@@ -5202,7 +5229,7 @@ sub tsmNoOpenTSErr { -2508 }
 
 =item tsmCantOpenComponentErr
 
- can’t open the component
+ canÕt open the component
 
 =cut
 
@@ -6968,7 +6995,7 @@ sub kEHOSTUNREACHErr { -3264 }
 
 =item kEPROTOErr
 
- ••• fill out missing codes •••
+ ¥¥¥ fill out missing codes ¥¥¥
 
 =cut
 
@@ -8487,7 +8514,7 @@ sub errUnsupportedWindowAttributesForClass { -5601 }
 
 =item errWindowDoesNotHaveProxy
 
- tried to do something requiring a proxy to a window which doesn’t have a proxy
+ tried to do something requiring a proxy to a window which doesnÕt have a proxy
 
 =cut
 
@@ -8716,7 +8743,7 @@ sub kDMMirroringBlocked { -6223 }
 
 =item kDMCantBlock
 
- Mirroring is already on, can’t Block now (call DMUnMirror() first).
+ Mirroring is already on, canÕt Block now (call DMUnMirror() first).
 
 =cut
 
@@ -11578,7 +11605,7 @@ sub telUnknownErr { -10103 }
 
 =item telNoCommFolder
 
- Communications/Extensions ƒ not found
+ Communications/Extensions Ä not found
 
 =cut
 
@@ -13683,7 +13710,7 @@ sub dsBadSANEOpcode { 81 }
 
 =item dsBadPatchHeader
 
- SetTrapAddress saw the “come-from” header
+ SetTrapAddress saw the Òcome-fromÓ header
 
 =cut
 
@@ -13731,7 +13758,7 @@ sub dsCDEFNotFound { 88 }
 
 =item dsNoFPU
 
- an FPU instruction was executed and the machine doesn’t have one
+ an FPU instruction was executed and the machine doesnÕt have one
 
 =cut
 
@@ -14019,7 +14046,7 @@ sub dsNoExtsDisassembler { -2 }
 
 =item dsMacsBugInstalled
 
- say “MacsBug Installed”
+ say ÒMacsBug InstalledÓ
 
 =cut
 
@@ -14027,7 +14054,7 @@ sub dsMacsBugInstalled { -10 }
 
 =item dsDisassemblerInstalled
 
- say “Disassembler Installed”
+ say ÒDisassembler InstalledÓ
 
 =cut
 
@@ -14035,7 +14062,7 @@ sub dsDisassemblerInstalled { -11 }
 
 =item dsExtensionsDisabled
 
- say “Extensions Disabled”
+ say ÒExtensions DisabledÓ
 
 =cut
 
@@ -14052,7 +14079,7 @@ sub dsGreeting { 40 }
 =item dsSysErr
 
  general system error
-old names here for compatibility’s sake
+old names here for compatibilityÕs sake
 
 =cut
 
@@ -14082,7 +14109,7 @@ sub dsBadStartupDisk { 42 }
 
 =item dsSystemFileErr
 
- can’t find System file to open (sad Mac only)
+ canÕt find System file to open (sad Mac only)
 
 =cut
 
@@ -14090,7 +14117,7 @@ sub dsSystemFileErr { 43 }
 
 =item dsHD20Installed
 
- say “HD20 Startup”
+ say ÒHD20 StartupÓ
 
 =cut
 
