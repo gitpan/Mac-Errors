@@ -1,18 +1,5 @@
-# $Id: load.t,v 1.2 2002/10/08 23:07:39 comdog Exp $
-BEGIN {
-	use File::Find::Rule;
-	@classes = map { my $x = $_;
-		$x =~ s|^blib/lib/||;
-		$x =~ s|/|::|g;
-		$x =~ s|\.pm$||;
-		$x;
-		} File::Find::Rule->file()->name( '*.pm' )->in( 'blib/lib' );
-	}
+# $Id: load.t,v 1.3 2003/03/20 14:43:24 petdance Exp $
 
-use Test::More tests => scalar @classes;
-	
-foreach my $class ( @classes )
-	{
-	print "bail out! $class did not compile" unless use_ok( $class );
-	}
+use Test::More tests=>1;
 
+use_ok( 'Mac::Errors' );

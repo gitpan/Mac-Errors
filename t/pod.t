@@ -1,14 +1,15 @@
-# $Id: pod.t,v 1.1.1.1 2002/09/10 05:49:06 comdog Exp $
+# $Id: pod.t,v 1.3 2003/03/20 15:15:48 petdance Exp $
+
 BEGIN {
-	use File::Find::Rule;
-	@files = File::Find::Rule->file()->name( '*.pm' )->in( 'blib/lib' );
-	}
+    @files = qw( lib/Mac/Errors.pm script/macerror );
+}
 
 use Test::More tests => scalar @files;
-use Test::Pod;
 
-foreach my $file ( @files )
-	{
-	pod_ok( $file );
-	}
+
+SKIP: {
+    eval "use Test::Pod;";
+    skip "Test::Pod not installed", scalar @files if $@;
+    pod_file_ok("blib/$_") for @files;
+}
 

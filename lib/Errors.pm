@@ -1,11 +1,11 @@
-# $Id: Errors.pm,v 1.4 2002/11/05 03:15:03 comdog Exp $
+# $Id: Errors.pm,v 1.5 2003/03/18 19:56:36 petdance Exp $
 package Mac::Errors;
 use strict;
 
 use base qw(Exporter Tie::Scalar);
 use vars qw(@EXPORT_OK %MacErrors $MacError $VERSION);
 
-$VERSION = '0.9';
+$VERSION = '0.91';
 
 use Exporter;
 
@@ -74,7 +74,7 @@ The subroutine returns the error number.
 
 =cut
 
-@EXPORT_OK = qw(%MacErrors);
+@EXPORT_OK = qw(%MacErrors $MacError);
 
 tie $MacError, __PACKAGE__;
 

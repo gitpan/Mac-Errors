@@ -1,25 +1,18 @@
-# $Id: Makefile.PL,v 1.4 2002/11/05 03:15:03 comdog Exp $
+# $Id: Makefile.PL,v 1.5 2003/03/20 14:54:34 petdance Exp $
 use ExtUtils::MakeMaker;
-
-sub ExtUtils::MM_Any::test_via_harness
-		{
-		my($self, $perl, $tests) = @_;
-
-		return qq|\t$perl "-MTest::Manifest" | .
-			qq|"-e" "run_t_manifest(\$(TEST_VERBOSE), '\$(INST_LIB)', | .
-			qq|'\$(INST_ARCHLIB)')"\n|;
-		}
 	
+eval "use Test::Pod";
+
+if ( $@ ) {
+    warn "Test::Pod is not installed on your machine, so we'll skip the POD tests.\n";
+}
+
 WriteMakefile(
 	'NAME'			=> 'Mac::Errors',
-	'VERSION_FROM'	=> 'lib/Errors.pm',
+	'VERSION_FROM'		=> 'lib/Errors.pm',
 	'PM'			=> { 'lib/Errors.pm' => '$(INST_LIBDIR)/Errors.pm' },
 	'PREREQ_PM'		=> {
-		'Test::Manifest'   => '0.9',
-		'File::Find::Rule' => '0',
 		'Test::More'       => '0',
-		'Test::Pod'        => '0',
-		'Test::Prereq'     => '0.18',
 		},
 	'EXE_FILES'		=> [ 'bin/macerror' ],
 	'MAN3PODS'		=> {
