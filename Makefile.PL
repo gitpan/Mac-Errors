@@ -8,11 +8,12 @@ my $tests = do {
 	
 WriteMakefile(
     'NAME'		    => 'Mac::Errors',
-    'VERSION'	    => '0.5',
+    'VERSION'	    => '0.6',
 	'PM'            => { 'lib/Errors.pm' => '$(INST_LIBDIR)/Errors.pm' },
     'PREREQ_PM'		=> {
     	Test::More       => 0,
     	Test::Pod        => 0,
+    	Test::Prereq     => 0,
     	File::Find::Rule => 0,
     	},
 
