@@ -1,11 +1,11 @@
-# $Id: Errors.pm,v 1.10 2005/03/12 04:58:17 comdog Exp $
+# $Id: Errors.pm,v 1.11 2006/01/26 01:28:13 comdog Exp $
 package Mac::Errors;
 use strict;
 
 use base qw(Exporter Tie::Scalar);
 use vars qw(@EXPORT_OK %MacErrors $MacError $VERSION);
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.10 $ =~ m/ (\d+) \. (\d+) /xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.11 $ =~ m/ (\d+) \. (\d+) /xg;
 
 use Exporter;
 
@@ -80,8 +80,8 @@ tie $MacError, __PACKAGE__;
 
 sub TIESCALAR 
 	{
-	my( $scalar, $class ) = @_;
-	return bless \$scalar, __PACKAGE__;
+	my( $class, $scalar ) = @_;
+	return bless \$scalar, $class;
 	}
 
 sub FETCH
