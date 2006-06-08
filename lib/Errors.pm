@@ -1,11 +1,11 @@
-# $Id: Errors.pm,v 1.11 2006/01/26 01:28:13 comdog Exp $
+# $Id: Errors.pm,v 1.12 2006/06/08 06:15:28 comdog Exp $
 package Mac::Errors;
 use strict;
 
 use base qw(Exporter Tie::Scalar);
 use vars qw(@EXPORT_OK %MacErrors $MacError $VERSION);
 
-$VERSION = sprintf "%d.%02d", q$Revision: 1.11 $ =~ m/ (\d+) \. (\d+) /xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.12 $ =~ m/ (\d+) \. (\d+) /xg;
 
 use Exporter;
 
@@ -14201,7 +14201,7 @@ brian d foy, C<< <bdfoy.org> >>
 
 =head1 COPYRIGHT
 
-Copyright 2002-2005, brian d foy, All rights reserved
+Copyright 2002-2006, brian d foy, All rights reserved
 
 You can use this module under the same terms as Perl itself.
 
