@@ -1,4 +1,4 @@
-# $Id: object.t,v 1.1 2002/10/08 23:13:31 comdog Exp $
+# $Id: object.t 444 2002-10-08 23:13:31Z comdog $
 use strict;
 
 use Test::More tests => 7;

@@ -1,20 +1,29 @@
-# $Id: Makefile.PL,v 1.8 2007/01/10 04:28:02 comdog Exp $
+# $Id: Makefile.PL 2460 2007-12-09 18:28:04Z comdog $
 use ExtUtils::MakeMaker;
 	
+require 5.006;
+
 eval "use Test::Manifest 1.14";
 
 WriteMakefile(
-	'NAME'              => 'Mac::Errors',
-	'VERSION_FROM'      => 'lib/Errors.pm',
-	'LICENSE'			=> 'perl',
+	'NAME'         => 'Mac::Errors',
+	'ABSTRACT'     => 'constants for Mac error codes',
+	'VERSION_FROM' => 'lib/Errors.pm',
+	'LICENSE'      => 'perl',
+	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
+	
+
 	'PM'                => { 'lib/Errors.pm' => '$(INST_LIBDIR)/Errors.pm' },
+
 	'PREREQ_PM'         => {
 		'Test::More'  => '0',
 		},
+
 	'EXE_FILES'         => [ 'bin/macerror' ],
+
 	'MAN3PODS'          => {
 		'lib/Errors.pm'    => '$(INST_MAN3DIR)/Mac::Errors.3',
 		},
 
 	clean               => { FILES => 'Mac-Errors-*' },
-);
+	);

@@ -1,4 +1,4 @@
-# $Id: errors.t,v 1.3 2004/09/03 00:06:04 comdog Exp $
+# $Id: errors.t 1389 2004-09-03 00:06:04Z comdog $
 
 use Test::More tests => 25;
 use Mac::Errors qw(%MacErrors);
