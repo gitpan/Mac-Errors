@@ -1,4 +1,3 @@
-# $Id: import.t 889 2003-03-20 15:17:37Z petdance $
 use strict;
 
 use Test::More tests => 6;

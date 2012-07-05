@@ -1,5 +1,3 @@
-# $Id: errors.t 1389 2004-09-03 00:06:04Z comdog $
-
 use Test::More tests => 25;
 use Mac::Errors qw(%MacErrors);
 
