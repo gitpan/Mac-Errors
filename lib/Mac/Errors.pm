@@ -7,7 +7,7 @@ no warnings;
 use base qw(Exporter Tie::Scalar);
 use vars qw(@EXPORT_OK %MacErrors $MacError $VERSION);
 
-$VERSION = 1.17;
+$VERSION = '1.17_01';
 
 use Exporter;
 
@@ -47,7 +47,8 @@ number or symbol.  Each value is a C<Mac::Errors> object which
 has the symbol, number, and description.
 
 The C<$MacError> scalar performs some tied magic to translate
-MacPerl's C<$^E> to the error text.
+MacPerl's C<$^E> to the error text. On other platforms, it is
+always undef.
 
 =head1 METHODS
 
@@ -82,14 +83,13 @@ The subroutine returns the error number.
 
 tie $MacError, __PACKAGE__;
 
-sub TIESCALAR 
-	{
+sub TIESCALAR {
 	my( $class, $scalar ) = @_;
 	return bless \$scalar, $class;
 	}
 
-sub FETCH
-	{
+sub FETCH {
+	return unless $^O eq 'MacOS';
 	my $errno = $^E + 0;
 	return $errno unless exists $MacErrors{ $errno };
 	return $MacErrors{ $errno }->description;
@@ -97,12 +97,10 @@ sub FETCH
 
 constants();
 
-sub constants 
-	{
+sub constants {
 	seek DATA, 0, 0; # this reads the entire script
 	my $data = do { local $/; <DATA> };
-	while( $data =~ m|=item (\w+)(?:\s+([^\n]+))?\n\s+?=cut\s+sub \1 { (-?\d+) }|g ) 
-		{
+	while( $data =~ m|=item (\w+)(?:\s+([^\n]+))?\n\s+?=cut\s+sub \1 { (-?\d+) }|g ) {
 		my( $symbol, $desc, $value ) = ( $1, $2, $3 );
 		push @EXPORT_OK, $symbol;
 		
@@ -14197,7 +14195,7 @@ This source is in Github:
 
 =head1 AUTHOR
 
-brian d foy, C<< <bdfoy.org> >>
+brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
