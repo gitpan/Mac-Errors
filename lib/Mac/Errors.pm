@@ -7,7 +7,7 @@ no warnings;
 use base qw(Exporter Tie::Scalar);
 use vars qw(@EXPORT_OK %MacErrors $MacError $VERSION);
 
-$VERSION = '1.17_02';
+$VERSION = '1.18';
 
 use Exporter;
 
@@ -64,7 +64,7 @@ Returns the error number, (e.g. -23)
 
 =item description
 
-Returns the errror description from MacErrors.h, which may
+Returns the error description from MacErrors.h, which may
 mean something to you, and may not, (e.g. I/O System Errors).
 
 Descriptions of errors are not unique, and some errors do
@@ -449,7 +449,7 @@ sub dupFNErr { -48 }
 
 =item opWrErr
 
- file already open with with write permission
+ file already open with write permission
 
 =cut
 
@@ -14199,7 +14199,7 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2002-2013 brian d foy.  All rights reserved.
+Copyright (c) 2002-2014 brian d foy.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

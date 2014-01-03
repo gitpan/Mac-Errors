@@ -41,11 +41,11 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "repository" : {
-         "url" : "http://github.com/chorny/test-warn/tree"
+         "url" : "https://github.com/briandfoy/Mac-Errors"
       }
    },
-   "version" : "1.17_02"
+   "version" : "1.18"
 }
